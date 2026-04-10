@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Rajaprakash Baskar — Automation Engineer</title>
+<style>
+:root{
+  --bg:#0a0c10;
+  --surface:#0f1117;
+  --card:#131720;
+  --border:#1e2535;
+  --accent:#00e5a0;
+  --accent2:#00aaff;
+  --text:#dce8f0;
+  --muted:#5a7080;
+  --mono:'Courier New',Courier,monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.7;overflow-x:hidden}
+body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.07) 2px,rgba(0,0,0,.07) 4px);pointer-events:none;z-index:9999}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,12,16,.93);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 40px;display:flex;align-items:center;height:52px}
+.nav-brand{font-family:var(--mono);font-size:13px;color:var(--accent);font-weight:700;letter-spacing:1px;margin-right:auto}
+.nav-brand span{color:var(--muted)}
+nav a{font-family:var(--mono);font-size:11px;letter-spacing:1px;color:var(--muted);text-decoration:none;padding:0 14px;height:52px;display:flex;align-items:center;transition:color .2s,border-bottom .2s;border-bottom:2px solid transparent}
+nav a:hover{color:var(--accent);border-bottom-color:var(--accent)}
+.nav-status{font-family:var(--mono);font-size:11px;color:var(--accent);margin-left:16px;display:flex;align-items:center;gap:6px}
+.dot{width:7px;height:7px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(0,229,160,.4)}50%{opacity:.7;box-shadow:0 0 0 6px rgba(0,229,160,0)}}
+
+/* ── HERO ── */
+#hero{min-height:100vh;display:flex;align-items:center;padding:100px 40px 60px;max-width:1100px;margin:0 auto}
+.hero-inner{width:100%}
+.hero-tag{font-family:var(--mono);font-size:12px;color:var(--accent2);letter-spacing:3px;margin-bottom:20px;opacity:.8}
+h1{font-family:var(--mono);font-size:clamp(34px,5vw,62px);font-weight:700;color:#fff;line-height:1.05;letter-spacing:-1px;margin-bottom:14px}
+h1 span{color:var(--accent)}
+.hero-sub{font-family:var(--mono);font-size:14px;color:var(--accent2);margin-bottom:24px;letter-spacing:1px}
+.hero-desc{max-width:700px;color:#8ba0b0;font-size:15px;line-height:1.85;margin-bottom:36px;border-left:2px solid var(--accent2);padding-left:18px}
+.hero-btns{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:52px}
+.btn{font-family:var(--mono);font-size:12px;letter-spacing:1px;padding:12px 24px;border-radius:4px;text-decoration:none;transition:all .2s;cursor:pointer;border:none;display:inline-block}
+.btn-primary{background:var(--accent);color:#000;font-weight:700}
+.btn-primary:hover{background:#00ffb3;transform:translateY(-2px)}
+.btn-outline{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+.btn-outline:hover{background:rgba(0,229,160,.1);transform:translateY(-2px)}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:10px;max-width:750px}
+.stat-box{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:13px 15px}
+.stat-key{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
+.stat-val{font-family:var(--mono);font-size:12px;color:var(--text);font-weight:600}
+.stat-val.green{color:var(--accent)}
+.stat-val.blue{color:var(--accent2)}
+
+/* ── LAYOUT ── */
+.section{padding:80px 40px;max-width:1100px;margin:0 auto}
+.bg-alt{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.section-hdr{font-family:var(--mono);font-size:12px;color:var(--accent);letter-spacing:3px;text-transform:uppercase;margin-bottom:36px;display:flex;align-items:center;gap:14px}
+.section-hdr::after{content:'';flex:1;height:1px;background:var(--border)}
+.sn{color:var(--muted);margin-right:2px}
+
+/* ── SKILL BARS ── */
+.bars-wrap{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
+.skill-row{margin-bottom:13px}
+.skill-meta{display:flex;justify-content:space-between;margin-bottom:5px}
+.skill-name{font-family:var(--mono);font-size:12px;color:var(--text)}
+.skill-pct{font-family:var(--mono);font-size:12px;color:var(--accent)}
+.bar-track{background:var(--card);border:1px solid var(--border);border-radius:2px;height:5px;overflow:hidden}
+.bar-fill{height:100%;background:linear-gradient(90deg,var(--accent2),var(--accent));border-radius:2px;width:0;transition:width 1.3s cubic-bezier(.4,0,.2,1)}
+
+/* ── SKILL CATS ── */
+.skills-cols{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:20px}
+.skill-cat{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:18px 20px;transition:border-color .2s}
+.skill-cat:hover{border-color:var(--accent2)}
+.sk-title{font-family:var(--mono);font-size:11px;color:var(--accent2);letter-spacing:2px;text-transform:uppercase;margin-bottom:13px}
+.tag-list{display:flex;flex-wrap:wrap;gap:7px}
+.stag{font-family:var(--mono);font-size:11px;background:rgba(0,170,255,.07);border:1px solid rgba(0,170,255,.18);color:#7ab5d0;padding:3px 9px;border-radius:3px}
+
+/* ── WORK HISTORY ── */
+.job{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:24px 26px;margin-bottom:16px;position:relative;overflow:hidden;transition:border-color .2s}
+.job:hover{border-color:var(--accent)}
+.job::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(to bottom,var(--accent),var(--accent2))}
+.job-hdr{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;margin-bottom:3px}
+.job-co{font-weight:700;color:#fff;font-size:16px}
+.job-period{font-family:var(--mono);font-size:11px;color:var(--muted);background:rgba(255,255,255,.04);border:1px solid var(--border);padding:3px 10px;border-radius:3px;white-space:nowrap}
+.job-role{font-family:var(--mono);font-size:12px;color:var(--accent);letter-spacing:.5px;margin-bottom:13px}
+.job-loc{font-size:12px;color:var(--muted);margin-left:10px;font-family:var(--sans)}
+.job ul{list-style:none;padding:0}
+.job ul li{position:relative;padding-left:18px;color:#8098a8;font-size:13.5px;margin-bottom:6px;line-height:1.7}
+.job ul li::before{content:'›';position:absolute;left:0;color:var(--accent2);font-weight:700;font-size:16px;line-height:1.4}
+.award{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11px;color:var(--accent);background:rgba(0,229,160,.07);border:1px solid rgba(0,229,160,.2);padding:5px 12px;border-radius:3px;margin-top:10px}
+.standards-box{background:rgba(0,170,255,.04);border:1px solid var(--border);border-left:3px solid var(--accent2);border-radius:6px;padding:15px 18px;margin-top:18px}
+.std-title{font-family:var(--mono);font-size:11px;color:var(--accent2);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+.std-tags{display:flex;flex-wrap:wrap;gap:7px}
+.std-tag{font-family:var(--mono);font-size:11px;background:rgba(0,170,255,.07);border:1px solid rgba(0,170,255,.15);color:#6aadcc;padding:3px 10px;border-radius:3px}
+
+/* ── PROJECTS ── */
+.proj-filter{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:26px}
+.pf-btn{font-family:var(--mono);font-size:11px;padding:6px 16px;border-radius:3px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all .2s;letter-spacing:1px}
+.pf-btn.active,.pf-btn:hover{border-color:var(--accent);color:var(--accent);background:rgba(0,229,160,.07)}
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:14px}
+.proj-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:20px 22px;transition:border-color .2s,transform .2s}
+.proj-card:hover{border-color:var(--accent2);transform:translateY(-2px)}
+.proj-id{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:2px;margin-bottom:5px}
+.proj-name{font-weight:700;color:#fff;font-size:14px;margin-bottom:4px}
+.proj-client{font-family:var(--mono);font-size:11px;color:var(--accent2);margin-bottom:11px}
+.proj-stats{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.ps{background:rgba(255,255,255,.03);border:1px solid var(--border);padding:5px 10px;border-radius:4px;text-align:center}
+.ps-val{font-family:var(--mono);font-size:13px;color:var(--accent);font-weight:700;display:block}
+.ps-key{font-family:var(--mono);font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase}
+.proj-card ul{list-style:none;padding:0;margin-bottom:12px}
+.proj-card ul li{position:relative;padding-left:14px;color:#7a95a5;font-size:12.5px;margin-bottom:5px;line-height:1.65}
+.proj-card ul li::before{content:'·';position:absolute;left:0;color:var(--accent);font-size:20px;line-height:1.1}
+.badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.badge{font-family:var(--mono);font-size:10px;background:rgba(0,170,255,.08);border:1px solid rgba(0,170,255,.2);color:#6aadcc;padding:2px 8px;border-radius:3px}
+.badge.g{background:rgba(0,229,160,.08);border-color:rgba(0,229,160,.2);color:#4dc99a}
+
+/* ── EDUCATION ── */
+.edu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.edu-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:18px 20px;transition:border-color .2s}
+.edu-card:hover{border-color:var(--accent)}
+.edu-icon{font-size:24px;margin-bottom:10px}
+.edu-degree{font-weight:600;color:#fff;font-size:14px;margin-bottom:4px}
+.edu-inst{font-size:12px;color:var(--muted);margin-bottom:6px}
+.edu-year{font-family:var(--mono);font-size:11px;color:var(--accent)}
+
+/* ── PERSONAL INFO ── */
+.pi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.pi-card{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:12px 15px}
+.pi-label{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:4px}
+.pi-val{font-family:var(--mono);font-size:12px;color:var(--text)}
+
+/* ── CONTACT ── */
+.contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.contact-links{display:flex;flex-direction:column;gap:12px;margin-top:24px}
+.clink{display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:13px;color:var(--muted);text-decoration:none;transition:color .2s}
+.clink:hover{color:var(--accent)}
+.clink-icon{width:36px;height:36px;background:var(--card);border:1px solid var(--border);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.form-group{margin-bottom:14px}
+.form-group label{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:6px}
+.form-group input,.form-group textarea{width:100%;background:var(--card);border:1px solid var(--border);color:var(--text);font-family:var(--sans);font-size:14px;padding:11px 13px;border-radius:5px;outline:none;transition:border-color .2s;resize:vertical}
+.form-group input:focus,.form-group textarea:focus{border-color:var(--accent2)}
+.form-group textarea{min-height:100px}
+#form-ok{display:none;font-family:var(--mono);font-size:12px;color:var(--accent);background:rgba(0,229,160,.07);border:1px solid rgba(0,229,160,.2);padding:11px 15px;border-radius:4px;margin-top:12px}
+
+/* ── FOOTER ── */
+footer{border-top:1px solid var(--border);padding:26px 40px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:1px}
+footer span{color:var(--accent)}
+
+/* ── INDUSTRIES ── */
+.ind-grid{display:flex;flex-wrap:wrap;gap:10px}
+.ind-pill{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 18px;font-size:14px}
+
+/* ── REVEAL ── */
+.reveal{opacity:1;transform:none;transition:opacity .6s ease,transform .6s ease}
+.reveal.animate{opacity:0;transform:translateY(18px)}
+.reveal.animate.visible{opacity:1;transform:none}
+
+@media(max-width:768px){
+  nav a{display:none}.nav-status{display:none}
+  #hero,.section{padding-left:20px;padding-right:20px}
+  .contact-wrap{grid-template-columns:1fr}
+  .proj-grid{grid-template-columns:1fr}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <div class="nav-brand">RB<span>://</span>AUTOMATION_ENG</div>
+  <a href="#experience">Experience</a>
+  <a href="#skills">Skills</a>
+  <a href="#projects">Projects</a>
+  <a href="#education">Education</a>
+  <a href="#contact">Contact</a>
+  <div class="nav-status"><span class="dot"></span>AVAILABLE</div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <div class="hero-inner reveal">
+    <div class="hero-tag">// PROJECT ENGINEER – AUTOMATION · MUSCAT, OMAN 🇴🇲</div>
+    <h1>Rajaprakash<br><span>Baskar</span></h1>
+    <div class="hero-sub">ISS+ SCADA · Experion HS · ControlEdge RTU · PLC · MiQ</div>
+    <p class="hero-desc">
+      Highly skilled Automation &amp; Control Engineer with 6+ years of experience in software design, development,
+      integration, and commissioning of systems like Honeywell ISS+ SCADA, Experion HS, Measurement IQ,
+      ControlEdge RTU, Siemens TIA Portal, and Allen Bradley PLCs. Proficient in SCADA, PLCs, and flow computers
+      with strong communication and teamwork skills — delivering across Oil &amp; Gas, Machine Automation,
+      and CMMS/EAM domains in Oman, India, Australia, and the Pacific.
+    </p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn btn-primary">▶ View Projects</a>
+      <a href="#contact" class="btn btn-outline">⊠ Get In Touch</a>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-box"><div class="stat-key">SYSTEM_STATUS</div><div class="stat-val green">● ONLINE</div></div>
+      <div class="stat-box"><div class="stat-key">CURRENT_ROLE</div><div class="stat-val">Project Engineer – Automation</div></div>
+      <div class="stat-box"><div class="stat-key">COMPANY</div><div class="stat-val blue">Mustafa Sultan S&amp;I LLC</div></div>
+      <div class="stat-box"><div class="stat-key">PLATFORM</div><div class="stat-val blue">ISS+ · Experion · RTU · PLC · MiQ</div></div>
+      <div class="stat-box"><div class="stat-key">EXPERIENCE</div><div class="stat-val green">6 YRS 5 MOS</div></div>
+      <div class="stat-box"><div class="stat-key">PROJECTS_DONE</div><div class="stat-val">15+</div></div>
+      <div class="stat-box"><div class="stat-key">LOCATION</div><div class="stat-val">MUSCAT, OMAN</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ WORK EXPERIENCE ══ -->
+<div class="section reveal" id="experience">
+  <div class="section-hdr"><span class="sn">// 01_</span>WORK_HISTORY</div>
+
+  <div class="job">
+    <div class="job-hdr">
+      <div class="job-co">Mustafa Sultan Science and Industry LLC</div>
+      <div class="job-period">JUN 2023 — PRESENT · 2 YRS 11 MOS</div>
+    </div>
+    <div class="job-role">Project Engineer – Automation <span class="job-loc">// Muscat, Oman · Oil &amp; Gas</span></div>
+    <ul>
+      <li>Installed and licensed Honeywell ISS+ FMS (Fiscal Metering SCADA) and MIQ for CBM and Uncertainty Analysis, ensuring seamless integration between Flow Computers, Flow Meters and Gas Chromatographs.</li>
+      <li>Configured devices, created tag databases, designed animations, alarms, and reports. Implemented firewalls for secure connectivity with the Muscat Control Centre (MCC).</li>
+      <li>Installation and commissioning of Honeywell Elster Flow Meters and MIWI 350, managing procurement, coordination and PTW (Permit to Work) responsibilities for OQGN.</li>
+      <li>Reviewed control philosophy, P&amp;IDs, and instrument lists for process understanding and field implementation; modified, installed and commissioned PLC and RTU panels across multiple sites.</li>
+      <li>Managed project documentation, vendor coordination and client meetings. Prepared IO lists, panel GADs and wiring diagrams.</li>
+      <li>Installed, configured and troubleshot Honeywell Experion HS. Developed Flowcomputer applications using EnSuite.</li>
+      <li>Coordinated cross-functional teams and vendors to meet project schedules and deliverables.</li>
+    </ul>
+    <div class="award">🏅 SMART Allocation Metering — 107 OQGN Sites Nationwide</div>
+    <div class="standards-box">
+      <div class="std-title">🔧 OQGN Standard Specifications Applied</div>
+      <div class="std-tags">
+        <span class="std-tag">Control &amp; Automation Philosophy</span>
+        <span class="std-tag">HFE – HMI Specification</span>
+        <span class="std-tag">Measurement &amp; Control Instrumentation Spec</span>
+        <span class="std-tag">Gas Measurement Standard R1</span>
+        <span class="std-tag">OQGN FAT &amp; SAT Procedure</span>
+        <span class="std-tag">Standard FC Reports &amp; SVC Displays Architecture</span>
+        <span class="std-tag">Industrial IT &amp; Cyber Security</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="job">
+    <div class="job-hdr">
+      <div class="job-co">TrueCue iEngineering India Pvt Ltd</div>
+      <div class="job-period">OCT 2020 — MAY 2023 · 2 YRS 8 MOS</div>
+    </div>
+    <div class="job-role">Automation Project Engineer <span class="job-loc">// Pune, India · Multi-Industry</span></div>
+    <ul>
+      <li>Collaborated with clients to analyze requirements and develop customized PLC, SCADA and HMI solutions.</li>
+      <li>Troubleshot system issues and implemented performance enhancements during commissioning.</li>
+      <li>Conducted I/O testing with field instruments to ensure reliable system operation.</li>
+      <li>Prepared detailed documentation, flowcharts and commissioning reports. Provided end-user training and post-deployment support.</li>
+      <li>Delivered remote support, deployed CMMS and IIoT platforms and integrated them with CMMS/MES systems.</li>
+      <li>Developed Power BI dashboards for data insights. Configured servers and networks for seamless automation integration.</li>
+    </ul>
+    <div class="award">✅ International Deployments — Micronesia · Fiji · Australia</div>
+  </div>
+
+  <div class="job">
+    <div class="job-hdr">
+      <div class="job-co">Symbiotic Automation Systems Pvt Ltd</div>
+      <div class="job-period">MAY 2019 — MAR 2020 · 11 MOS</div>
+    </div>
+    <div class="job-role">Graduate Trainee <span class="job-loc">// Bangalore, India · Machine Automation</span></div>
+    <ul>
+      <li>Developed PLC, HMI and SCADA systems for machine and process automation projects.</li>
+      <li>Conducted pre-commissioning, commissioning and I/O testing to ensure seamless integration with field instruments.</li>
+      <li>Performed troubleshooting and system enhancements to optimize performance.</li>
+      <li>Prepared detailed project documentation, including commissioning reports and control flowcharts.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ══ SKILLS ══ -->
+<div class="bg-alt">
+<div class="section reveal" id="skills">
+  <div class="section-hdr"><span class="sn">// 02_</span>TECHNICAL_SKILLS</div>
+  <div class="skills-cols">
+    <div class="skill-cat">
+      <div class="sk-title">🏭 SCADA / HMI / MES</div>
+      <div class="tag-list">
+        <span class="stag">Honeywell ISS+ SCADA</span><span class="stag">Measurement IQ</span><span class="stag">Experion HS</span><span class="stag">WinCC Unified</span><span class="stag">WinCC Professional</span><span class="stag">FactoryTalk View</span><span class="stag">Carl Source V6–V7</span>
+      </div>
+    </div>
+    <div class="skill-cat">
+      <div class="sk-title">💻 PLC Software</div>
+      <div class="tag-list">
+        <span class="stag">ControlEdge Builder</span><span class="stag">Simatic Manager</span><span class="stag">TIA Portal V15–V17</span><span class="stag">RSLogix 5000 V30</span><span class="stag">Studio 5000</span>
+      </div>
+    </div>
+    <div class="skill-cat">
+      <div class="sk-title">⌨️ Programming Languages</div>
+      <div class="tag-list">
+        <span class="stag">Ladder (LAD)</span><span class="stag">FBD</span><span class="stag">STL</span><span class="stag">CFC</span><span class="stag">SFC</span><span class="stag">SCL</span><span class="stag">VB Script</span><span class="stag">C Script</span><span class="stag">SQL</span>
+      </div>
+    </div>
+    <div class="skill-cat">
+      <div class="sk-title">📡 Communication Protocols</div>
+      <div class="tag-list">
+        <span class="stag">Profibus</span><span class="stag">Profinet</span><span class="stag">Modbus TCP/IP</span><span class="stag">Modbus RTU</span><span class="stag">OPC UA</span><span class="stag">DNP3</span>
+      </div>
+    </div>
+    <div class="skill-cat">
+      <div class="sk-title">📊 Reporting &amp; BI Tools</div>
+      <div class="tag-list">
+        <span class="stag">Power BI</span><span class="stag">BIRT Report</span><span class="stag">MS Report Builder</span><span class="stag">FC Ensuite</span>
+      </div>
+    </div>
+    <div class="skill-cat">
+      <div class="sk-title">🛠️ Additional Software</div>
+      <div class="tag-list">
+        <span class="stag">HCi Design Studio</span><span class="stag">MasterLink</span><span class="stag">AutoCAD</span><span class="stag">CMMS / EAM</span><span class="stag">IIoT Platforms</span>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══ FMS STANDARD SPECIFICATIONS ══ -->
+<div class="section reveal" id="fms-standards">
+  <div class="section-hdr"><span class="sn">// 03_</span>FMS_STANDARD_SPECIFICATIONS</div>
+  <p style="color:#7a95a5;font-size:13.5px;line-height:1.85;margin-bottom:32px;max-width:860px;border-left:2px solid var(--accent2);padding-left:16px;">
+    Fiscal Metering System (FMS) standard specifications applied across OQGN Oil &amp; Gas projects — governing design, integration, commissioning and cybersecurity of gas measurement infrastructure.
+  </p>
+  <div class="skills-cols">
+    <div class="skill-cat" style="border-color:rgba(0,229,160,.25)">
+      <div class="sk-title">⚙️ Control &amp; Automation Philosophy</div>
+      <div class="tag-list">
+        <span class="stag">Control System Architecture</span>
+        <span class="stag">Redundancy Design</span>
+        <span class="stag">Failsafe &amp; Interlock Logic</span>
+        <span class="stag">Automation Hierarchy</span>
+        <span class="stag">Loop Control Strategy</span>
+      </div>
+    </div>
+    <div class="skill-cat" style="border-color:rgba(0,229,160,.25)">
+      <div class="sk-title">🖥️ HFE – HMI Specification</div>
+      <div class="tag-list">
+        <span class="stag">Human Factors Engineering</span>
+        <span class="stag">Display Hierarchy Design</span>
+        <span class="stag">Alarm Management</span>
+        <span class="stag">Operator Workflow</span>
+        <span class="stag">HMI Ergonomics</span>
+      </div>
+    </div>
+    <div class="skill-cat" style="border-color:rgba(0,229,160,.25)">
+      <div class="sk-title">📐 Measurement &amp; Control Instrumentation Specification</div>
+      <div class="tag-list">
+        <span class="stag">Flow Meter Selection</span>
+        <span class="stag">PT / TT / RTD Specification</span>
+        <span class="stag">Instrument Loop Design</span>
+        <span class="stag">Calibration Standards</span>
+        <span class="stag">Uncertainty Analysis</span>
+      </div>
+    </div>
+    <div class="skill-cat" style="border-color:rgba(0,229,160,.25)">
+      <div class="sk-title">⛽ Gas Measurement Standard R1</div>
+      <div class="tag-list">
+        <span class="stag">Custody Transfer Metering</span>
+        <span class="stag">AGA / ISO Standards</span>
+        <span class="stag">Volume Correction (EVC)</span>
+        <span class="stag">Gas Quality Analysis</span>
+        <span class="stag">GC Integration</span>
+      </div>
+    </div>
+    <div class="skill-cat" style="border-color:rgba(0,229,160,.25)">
+      <div class="sk-title">🧪 OQGN Standards – FAT &amp; SAT Procedure</div>
+      <div class="tag-list">
+        <span class="stag">Factory Acceptance Testing</span>
+        <span class="stag">Site Acceptance Testing</span>
+        <span class="stag">Test Protocol Preparation</span>
+        <span class="stag">Punch List Management</span>
+        <span class="stag">Commissioning Sign-off</span>
+      </div>
+    </div>
+    <div class="skill-cat" style="border-color:rgba(0,229,160,.25)">
+      <div class="sk-title">📊 Standard FC Reports &amp; SVC Displays Architecture</div>
+      <div class="tag-list">
+        <span class="stag">Flow Computer Report Templates</span>
+        <span class="stag">SVC Display Standards</span>
+        <span class="stag">Daily / Monthly Gas Reports</span>
+        <span class="stag">Metering Dashboard Design</span>
+        <span class="stag">ISS+ Report Builder</span>
+      </div>
+    </div>
+    <div class="skill-cat" style="border-color:rgba(0,229,160,.25)">
+      <div class="sk-title">🔐 Industrial IT &amp; Cyber Security</div>
+      <div class="tag-list">
+        <span class="stag">ICS / OT Security</span>
+        <span class="stag">Firewall Configuration</span>
+        <span class="stag">Network Segmentation</span>
+        <span class="stag">Secure Remote Access</span>
+        <span class="stag">ISA / IEC 62443</span>
+        <span class="stag">Patch Management</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PROJECTS ══ -->
+<div class="section reveal" id="projects">
+  <div class="section-hdr"><span class="sn">// 04_</span>KEY_PROJECTS</div>
+  <div class="proj-filter">
+    <button class="pf-btn active" onclick="filterProj('all',this)">ALL</button>
+    <button class="pf-btn" onclick="filterProj('oilgas',this)">Oil &amp; Gas</button>
+    <button class="pf-btn" onclick="filterProj('machine',this)">Machine Automation</button>
+    <button class="pf-btn" onclick="filterProj('cmms',this)">CMMS / EAM</button>
+  </div>
+  <div class="proj-grid" id="projGrid">
+
+    <div class="proj-card" data-cat="oilgas">
+      <div class="proj-id">PROJECT_001 · OIL &amp; GAS · OQGN · OMAN</div>
+      <div class="proj-name">Fiscal Metering SCADA – Development &amp; Commissioning</div>
+      <div class="proj-client">OQ Gas Networks SAOG (OQGN) · Muscat, Sohar, Sur, Nizwa, Salalah</div>
+      <div class="proj-stats">
+        <div class="ps"><span class="ps-val">Redundant</span><span class="ps-key">ISS+ Servers</span></div>
+        <div class="ps"><span class="ps-val">CBM + UA</span><span class="ps-key">MiQ Analysis</span></div>
+        <div class="ps"><span class="ps-val">FMS</span><span class="ps-key">Standard</span></div>
+      </div>
+      <ul>
+        <li>Installed and configured redundant ISS+ and MiQ servers; implemented Fiscal Metering SCADA for validation and monitoring.</li>
+        <li>Verified network setup, loop checks and transmitter (PT, TT, RTD) validation through ISS+.</li>
+        <li>Integrated MiQ with ISS+ for CBM and Uncertainty Analysis; configured firewalls for secure data transfer to MCC.</li>
+        <li>Developed tags, animations, alarms, reports and dashboards for metering and performance analysis.</li>
+        <li>Conducted FAT/SAT, commissioning, troubleshooting and system optimization to meet FMS specifications.</li>
+      </ul>
+      <div class="badges">
+        <span class="badge">Honeywell ISS+</span><span class="badge">Measurement IQ</span><span class="badge g">FAT/SAT</span><span class="badge">Flow Computers</span><span class="badge">GC Analyzers</span>
+      </div>
+    </div>
+
+    <div class="proj-card" data-cat="oilgas">
+      <div class="proj-id">PROJECT_002 · OIL &amp; GAS · OQGN · OMAN</div>
+      <div class="proj-name">SMART Allocation Metering – Custody Transfer of Natural Gas</div>
+      <div class="proj-client">OQ Gas Networks SAOG (OQGN) · Muscat, Sohar, Sur, Nizwa, Salalah</div>
+      <div class="proj-stats">
+        <div class="ps"><span class="ps-val">107</span><span class="ps-key">OQGN Sites</span></div>
+        <div class="ps"><span class="ps-val">EVC</span><span class="ps-key">Technology</span></div>
+        <div class="ps"><span class="ps-val">RTU</span><span class="ps-key">Linked</span></div>
+      </div>
+      <ul>
+        <li>Replaced legacy flow meters with advanced Turbine and Rotary Mechanical Flow Meters across 107 OQGN sites deploying EVC technology for custody transfer.</li>
+        <li>Established SCADA–DCS communication for dual-site measurement; commissioned EVC–RTU links via field routers.</li>
+        <li>Developed RTU logic, site-specific SCADA screens and daily reporting tools in Honeywell ISS+ for real-time monitoring.</li>
+        <li>Conducted FAT/SAT ensuring system performance, reliability and compliance with Madayn FMS project standards.</li>
+      </ul>
+      <div class="badges">
+        <span class="badge">ISS+ SCADA</span><span class="badge">ControlEdge RTU</span><span class="badge g">107 Sites</span><span class="badge">EVC Technology</span>
+      </div>
+    </div>
+
+    <div class="proj-card" data-cat="oilgas">
+      <div class="proj-id">PROJECT_003 · OIL &amp; GAS · OQGN · OMAN</div>
+      <div class="proj-name">Replacement of Obsoleted SVCs across OQGN Assets</div>
+      <div class="proj-client">OQ Gas Networks SAOG (OQGN) · Muscat, Sohar, Sur, Nizwa, Salalah</div>
+      <ul>
+        <li>Installed and configured redundant ISS+ and MiQ servers; performed network setup, loop checks and validation of PTs, TTs, and RTDs via ISS+.</li>
+        <li>Established communication between Flow Computers, Flow Meters and GCs; installed and licensed ISS+ FMS on client servers.</li>
+        <li>Integrated MiQ with ISS+ for CBM and Uncertainty Analysis; configured firewalls for secure data transfer to MCC.</li>
+        <li>Developed tags, animations, alarms, reports and dashboards; handled commissioning, troubleshooting and system optimization.</li>
+      </ul>
+      <div class="badges">
+        <span class="badge">ISS+ SCADA</span><span class="badge">Measurement IQ</span><span class="badge">Gas Chromatograph</span><span class="badge g">Firewall Config</span>
+      </div>
+    </div>
+
+    <div class="proj-card" data-cat="oilgas">
+      <div class="proj-id">PROJECT_004 · OIL &amp; GAS · OQGN · OMAN</div>
+      <div class="proj-name">WET Calibration / Maintenance of Ultrasonic Flowmeter (USM)</div>
+      <div class="proj-client">OQ Gas Networks SAOG (OQGN) · Muscat, Sohar, Sur, Nizwa, Salalah</div>
+      <ul>
+        <li>Managed site mobilization including PTW, RA, MS submission, wiring verification and meter health checks.</li>
+        <li>Supervised meter removal — coordinated line isolation, crane operations, meter handling and documentation.</li>
+        <li>Oversaw meter installation: flow conditioner placement, skid mounting, torque verification and N₂ leak testing with nitrogen.</li>
+        <li>Verified USM connections, restored panel links, charged lines with natural gas and ensured system integrity.</li>
+        <li>Prepared and submitted reports; handled site housekeeping and de-mobilization.</li>
+      </ul>
+      <div class="badges">
+        <span class="badge">USM Calibration</span><span class="badge">PTW / RA / MS</span><span class="badge g">Field Commissioning</span>
+      </div>
+    </div>
+
+    <div class="proj-card" data-cat="oilgas">
+      <div class="proj-id">PROJECT_005 · OIL &amp; GAS · OQGN · OMAN</div>
+      <div class="proj-name">PDO Asset Transfer – Fiscal Metering System Package</div>
+      <div class="proj-client">OQ Gas Networks SAOG (OQGN) · Fahud BVS 2A, Natih BVS 3, Salalah BVS 18</div>
+      <ul>
+        <li>Installed and configured Experion HS and MiQ servers; implemented Fiscal Metering SCADA with pre-commissioning network setup and loop verification.</li>
+        <li>Developed and configured Elster FC1 Flowcomputer — setup, troubleshooting and report generation.</li>
+        <li>Validated PTs, TTs, and RTDs; established communication between Flow Computers, Flow Meters and Gas Chromatographs.</li>
+        <li>Created tags, animations, alarms, reports and dashboards for metering, CBM and uncertainty analysis.</li>
+        <li>Handled ControlEdge Builder PLC programming; managed project documentation, IO lists, panel GADs and wiring diagrams.</li>
+      </ul>
+      <div class="badges">
+        <span class="badge">Experion HS</span><span class="badge">Elster FC1</span><span class="badge">ControlEdge PLC</span><span class="badge g">PDO Transfer</span>
+      </div>
+    </div>
+
+    <div class="proj-card" data-cat="oilgas">
+      <div class="proj-id">PROJECT_006 · LNG · OQGN · OMAN</div>
+      <div class="proj-name">Marsa LNG – Fiscal Metering System Package</div>
+      <div class="proj-client">OQ Gas Networks SAOG (OQGN) · Sohar</div>
+      <ul>
+        <li>Managed vendor documents for Manual Valves, Pneumatic Valves, Pneumatic Actuators, GC Analyzers and Skid Design/Fabrication ensuring compliance with client specifications.</li>
+        <li>Installed and configured Experion HS and MiQ servers; developed and configured Elster FC1 Flowcomputer.</li>
+        <li>Validated PTs, TTs, RTDs; established communication between Flow Computers, Flow Meters and Gas Chromatographs.</li>
+        <li>Created tags, animations, alarms, reports and dashboards; handled ControlEdge Builder PLC programming and on-site/off-site commissioning.</li>
+      </ul>
+      <div class="badges">
+        <span class="badge g">LNG</span><span class="badge">Experion HS</span><span class="badge">Elster FC1</span><span class="badge">Sohar, Oman</span>
+      </div>
+    </div>
+
+    <div class="proj-card" data-cat="machine">
+      <div class="proj-id">PROJECT_007 · MACHINE AUTOMATION · AUSTRALIA</div>
+      <div class="proj-name">Carborough Downs JV – Surface Ventilation Fans MF03 &amp; MF04</div>
+      <div class="proj-client">Australia · Mining / Ventilation</div>
+      <ul>
+        <li>Role: Development &amp; Commissioning Engineer — Logic Development, Software FAT with Client.</li>
+        <li>Pre-Commissioning: Software Setup, Network Setup, Loop Check and Off-Site commissioning.</li>
+      </ul>
+      <div class="badges">
+        <span class="badge">AB ControlLogix L72</span><span class="badge">Studio 5000 V31</span><span class="badge">Siemens G120</span><span class="badge g">Citect SCADA V8.1 SPB</span>
+      </div>
+    </div>
+
+    <div class="proj-card" data-cat="machine">
+      <div class="proj-id">PROJECT_008 · MACHINE AUTOMATION · AUSTRALIA</div>
+      <div class="proj-name">Moranbah JV – Surface Ventilation Fans MF03 &amp; MF04 SCADA Upgrade</div>
+      <div class="proj-client">Australia · Mining / Ventilation</div>
+      <ul>
+        <li>Role: Development &amp; Commissioning Engineer — Logic Development, Software FAT with Client.</li>
+        <li>Pre-Commissioning: Software Setup, Network Setup, Loop Check and Off-Site commissioning.</li>
+        <li>SCADA system upgrade and functional verifications.</li>
+      </ul>
+      <div class="badges">
+        <span class="badge g">Citect SCADA V8.1 SPB</span><span class="badge">SCADA Upgrade</span>
+      </div>
+    </div>
+
+    <div class="proj-card" data-cat="machine">
+      <div class="proj-id">PROJECT_009 · MACHINE AUTOMATION · INDIA</div>
+      <div class="proj-name">Isothermal Annealing Furnace SCADA</div>
+      <div class="proj-client">High Temp Furnace Pvt Ltd · Bangalore</div>
+      <ul>
+        <li>Role: Development &amp; Commissioning Engineer — Pre-Commissioning (Pre-Panel Check, Network Setup, Loop Check) and On-Site commissioning.</li>
+        <li>System commissioning and functional verification.</li>
+      </ul>
+      <div class="badges">
+        <span class="badge">TIA Portal V16</span><span class="badge g">Advanced SCADA</span>
+      </div>
+    </div>
+
+    <div class="proj-card" data-cat="machine">
+      <div class="proj-id">PROJECT_010 · MACHINE AUTOMATION · INDIA</div>
+      <div class="proj-name">Air Blower Two System &amp; Air Blower Four System</div>
+      <div class="proj-client">HMX Private Limited · Bangalore</div>
+      <ul>
+        <li>Role: Development &amp; Commissioning Engineer — Pre-Commissioning (Pre-Panel Check, Network Setup, Loop Check) and On-Site commissioning.</li>
+      </ul>
+      <div class="badges">
+        <span class="badge">Siemens S7-1200</span><span class="badge">TIA V15</span><span class="badge">TP700 HMI</span><span class="badge g">Siemens V20 Drive</span>
+      </div>
+    </div>
+
+    <div class="proj-card" data-cat="machine">
+      <div class="proj-id">PROJECT_011 · MACHINE AUTOMATION · INDIA</div>
+      <div class="proj-name">Liquid Ring Vacuum Pump (LRVP)</div>
+      <div class="proj-client">Toshniwal Instruments Madras Pvt Ltd</div>
+      <ul>
+        <li>Role: Development &amp; Commissioning Engineer — Pre-Commissioning (Pre-Panel Check, Network Setup, Loop Check) and On-Site commissioning.</li>
+      </ul>
+      <div class="badges">
+        <span class="badge">AB 5380 CPU</span><span class="badge">PanelView Plus 700 HMI</span><span class="badge g">Studio 5000 V31</span>
+      </div>
+    </div>
+
+    <div class="proj-card" data-cat="cmms">
+      <div class="proj-id">PROJECT_012 · CMMS/EAM · MICRONESIA</div>
+      <div class="proj-name">CMMS/EAM Implementation</div>
+      <div class="proj-client">VITAL FSM Petroleum Ltd · Micronesia</div>
+      <ul>
+        <li>Deployed Carl Source CMMS (v5), customized workflows, and integrated IIoT interfaces.</li>
+        <li>Developed Power BI dashboards and BIRT reports; aligned CMMS with client maintenance processes.</li>
+        <li>Managed asset tracking, system setup across 2 servers, and performance optimization.</li>
+      </ul>
+      <div class="badges">
+        <span class="badge">Carl Source v5</span><span class="badge">Power BI</span><span class="badge g">IIoT Integration</span>
+      </div>
+    </div>
+
+    <div class="proj-card" data-cat="cmms">
+      <div class="proj-id">PROJECT_013 · CMMS/EAM · FIJI</div>
+      <div class="proj-name">CMMS/EAM System Upgrade</div>
+      <div class="proj-client">FMF Foods Ltd · Fiji</div>
+      <ul>
+        <li>Upgraded Carl Source CMMS (v6.4 &amp; v7.0); integrated with CARL–QAD system.</li>
+        <li>Conducted data analysis; generated BIRT and Power BI reports to identify trends and recommend process improvements.</li>
+        <li>Managed asset data and system setup across 2 servers for seamless operation.</li>
+      </ul>
+      <div class="badges">
+        <span class="badge">Carl Source v7</span><span class="badge">CARL-QAD</span><span class="badge g">BIRT Reports</span>
+      </div>
+    </div>
+
+    <div class="proj-card" data-cat="cmms">
+      <div class="proj-id">PROJECT_014 · CMMS/EAM · FIJI</div>
+      <div class="proj-name">CMMS/EAM Deployment</div>
+      <div class="proj-client">Fiji Ports · Fiji</div>
+      <ul>
+        <li>Deployed Carl Source CMMS (v6.4 &amp; v7.0); implemented project planning, resource allocation and risk management features.</li>
+        <li>Developed BIRT and Power BI reports; managed asset tracking and system setup across 2 servers.</li>
+      </ul>
+      <div class="badges">
+        <span class="badge">Carl Source v6.4</span><span class="badge">Power BI</span><span class="badge g">Asset Management</span>
+      </div>
+    </div>
+
+    <div class="proj-card" data-cat="cmms">
+      <div class="proj-id">PROJECT_015 · CMMS/EAM · FIJI</div>
+      <div class="proj-name">CMMS/EAM Implementation</div>
+      <div class="proj-client">Bluescope Steel · Fiji</div>
+      <ul>
+        <li>Deployed and customized Carl Source CMMS (v6.4 &amp; v7.0) to align with client maintenance processes and workflows.</li>
+        <li>Developed BIRT and Power BI reports; managed asset data and system setup across 2 servers.</li>
+      </ul>
+      <div class="badges">
+        <span class="badge">Carl Source v7</span><span class="badge">BIRT</span><span class="badge g">Steel Industry</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ EDUCATION ══ -->
+<div class="bg-alt">
+<div class="section reveal" id="education">
+  <div class="section-hdr"><span class="sn">// 05_</span>EDUCATION</div>
+  <div class="edu-grid">
+    <div class="edu-card">
+      <div class="edu-icon">🎓</div>
+      <div class="edu-degree">Bachelor of Engineering – Instrumentation &amp; Control Engineering</div>
+      <div class="edu-inst">AVC College of Engineering, Anna University, India</div>
+      <div class="edu-year">Jun 2015 – Apr 2019</div>
+    </div>
+  </div>
+  <div style="margin-top:40px">
+    <div class="section-hdr" style="margin-bottom:18px"><span class="sn">// 06_</span>PERSONAL_INFO</div>
+    <div class="pi-grid">
+      <div class="pi-card"><div class="pi-label">Passport</div><div class="pi-val">T5513722</div></div>
+      <div class="pi-card"><div class="pi-label">Passport Expiry</div><div class="pi-val">01 Apr 2029</div></div>
+      <div class="pi-card"><div class="pi-label">Driving License</div><div class="pi-val">GCC – Oman Light Vehicle</div></div>
+      <div class="pi-card"><div class="pi-label">DL Expiry</div><div class="pi-val">20 Nov 2026</div></div>
+      <div class="pi-card"><div class="pi-label">Visa Status</div><div class="pi-val">Oman Employment Visa</div></div>
+      <div class="pi-card"><div class="pi-label">Visa Valid Till</div><div class="pi-val">08 Jun 2027</div></div>
+      <div class="pi-card"><div class="pi-label">Languages</div><div class="pi-val">English · Tamil</div></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══ CONTACT ══ -->
+<div class="section reveal" id="contact">
+  <div class="section-hdr"><span class="sn">// 07_</span>CONTACT</div>
+  <div class="contact-wrap">
+    <div>
+      <h2 style="font-family:var(--mono);font-size:22px;color:#fff;margin-bottom:12px">Let's Build Something</h2>
+      <p style="color:#7a95a5;font-size:14px;line-height:1.85;">
+        Open to automation engineering roles, SCADA/PLC consultancy, and Oil &amp; Gas metering projects.
+        Based in Muscat, Oman — available for local and international opportunities. Languages: English · Tamil.
+      </p>
+      <div class="contact-links">
+        <a href="/cdn-cgi/l/email-protection#0e7c6f646f7e7c6f656f7d666c6f7d656f7c4e69636f6762206d6163" class="clink">
+          <div class="clink-icon">✉</div><span class="__cf_email__" data-cfemail="582a393239282a3933392b303a392b33392a183f35393134763b3735">[email&#160;protected]</span>
+        </a>
+        <a href="tel:+96879180599" class="clink">
+          <div class="clink-icon">📞</div>+968-79180599 (Oman)
+        </a>
+        <a href="tel:+919994046012" class="clink">
+          <div class="clink-icon">📞</div>+91-9994046012 (India)
+        </a>
+        <a href="https://www.linkedin.com/in/rajaprakash-baskar" target="_blank" class="clink">
+          <div class="clink-icon">in</div>linkedin.com/in/rajaprakash-baskar
+        </a>
+      </div>
+    </div>
+    <div>
+      <div class="form-group"><label>Name</label><input type="text" placeholder="Your name"/></div>
+      <div class="form-group"><label>Email</label><input type="email" placeholder="your@email.com"/></div>
+      <div class="form-group"><label>Message</label><textarea placeholder="Your message..."></textarea></div>
+      <button class="btn btn-primary" onclick="submitForm()" style="width:100%">▶ SEND MESSAGE</button>
+      <div id="form-ok">✓ Message sent! Rajaprakash will be in touch soon.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  © 2025 — <span>Rajaprakash Baskar</span> · Project Engineer – Automation · Muscat, Oman<br>
+  <span style="color:var(--muted);font-size:10px;margin-top:4px;display:block">ISS+ SCADA · Experion HS · ControlEdge RTU · PLC · MiQ · TIA Portal · Allen Bradley · 6 YRS 5 MOS</span>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+function filterProj(cat, btn) {
+  document.querySelectorAll('.pf-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.proj-card').forEach(c => {
+    c.style.display = (cat === 'all' || c.dataset.cat === cat) ? '' : 'none';
+  });
+}
+function submitForm() {
+  document.getElementById('form-ok').style.display = 'block';
+}
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      e.target.query
